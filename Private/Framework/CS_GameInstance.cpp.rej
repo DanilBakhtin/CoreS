@@ -1,0 +1,13 @@
+diff a/Plugins/Core_Simulator/Source/Core_Simulator/Private/Framework/CS_GameInstance.cpp b/Plugins/Core_Simulator/Source/Core_Simulator/Private/Framework/CS_GameInstance.cpp	(rejected hunks)
+@@ -16,6 +16,11 @@
+         // �������������� � ������ �� ���������
+         LocalizationManager->Initialize("ru");
+     }
++
++    if (FParse::Param(FCommandLine::Get(), TEXT("lnr")))
++    {
++        UE_LOG(LogTemp, Warning, TEXT("���� -lnr ������������"));
++    }
+ }
+ 
+ void UCS_GameInstance::ApplyResolution()

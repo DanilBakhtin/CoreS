@@ -1,0 +1,13 @@
+diff a/Plugins/Core_Simulator/Source/Core_Simulator/Private/Gameplay/Utilities/CS_LocalizationManager.cpp b/Plugins/Core_Simulator/Source/Core_Simulator/Private/Gameplay/Utilities/CS_LocalizationManager.cpp	(rejected hunks)
+@@ -49,8 +49,11 @@
+         UE_LOG(LogTemp, Error, TEXT("Failed to parse JSON: %s"), *FilePath);
+         return false;
+     }
++
++    // ������� ���������� ��������
+     Translations.Empty();
+ 
++    // ��������� ����� ��������
+     const TSharedPtr<FJsonObject>* TranslationsObject;
+     if (JsonObject->TryGetObjectField("translations", TranslationsObject))
+     {
