@@ -2,6 +2,7 @@
 
 ## Оглавление
 
+- [Диаграмма классов](#class-diagram)
 - [Термины](#section-01)
 - [Возможности плагина](#section-02)
 - [Установка и подключение](#section-03)
@@ -42,11 +43,17 @@
     - [Measure Point](#section-38)
     - [Cells Decals](#section-39)
 - [Локализация](#section-40)
-- [Вопросы для уточнения и предложения](#section-41)
 
 Документ описывает назначение плагина, его установку в проект Unreal Engine и основные точки расширения тренажёра. Настройку начинайте с подключения модуля и контента, затем задайте коллизии, классы проекта и параметры курса.
 
 Основа описания — версия Development.43e02f5 от 17.06.2026. Для другой версии сверяйте названия полей, классов и требования к интеграции с исходным кодом.
+
+<a id="class-diagram"></a>
+## Диаграмма классов
+
+Схема показывает основные игровые классы, связь с АОС, интерактивные объекты и компоненты, а также управление интерфейсом через HUD.
+
+![Диаграмма классов Core Simulator](docs/images/class_diagram.png)
 
 <a id="section-01"></a>
 ### Термины
@@ -85,18 +92,18 @@ https://onil-git/unreal-engine/coresimulator
 
 Скопируйте каталог Plugins из проекта coresimulator в корень нового проекта.
 
-![Папка плагина Core Simulator](core-simulator-01-plugin-folder.png)
+![Папка плагина Core Simulator](docs/images/core-simulator-01-plugin-folder.png)
 
 Из каталога Content исходного проекта скопируйте в Content нового проекта папки Images, Movies и Locales. Images содержит типовые изображения интерфейса и схемы; Movies — видео экрана загрузки; Locales — JSON-файлы локализации и постоянных текстов меню.
 
-![Папки Images, Locales и Movies](core-simulator-02-content-folders.png)
+![Папки Images, Locales и Movies](docs/images/core-simulator-02-content-folders.png)
 
 <a id="section-07"></a>
 ### 2 Включите плагин и модуль
 
 Включите плагин в обозревателе плагинов Unreal Engine и перезапустите проект.
 
-![Включение плагина в Unreal Engine](core-simulator-03-plugin-enable.jpg)
+![Включение плагина в Unreal Engine](docs/images/core-simulator-03-plugin-enable.jpg)
 
 Добавьте модуль Core_Simulator в PrivateDependencyModuleNames.AddRange файла `<ИмяПроекта>.Build.cs`:
 
@@ -122,7 +129,7 @@ Name: TC_Interact;
 Default Response: Ignore.
 ```
 
-![Настройки канала трассировки TC_Interact](core-simulator-04-trace-channel.jpg)
+![Настройки канала трассировки TC_Interact](docs/images/core-simulator-04-trace-channel.jpg)
 
 *Параметры канала TC_Interact.*
 
@@ -150,7 +157,7 @@ Collision Responses:
 		Destructible:	Ignore.
 ```
 
-![Настройки профиля коллизии InteractObject](core-simulator-05-collision-preset.png)
+![Настройки профиля коллизии InteractObject](docs/images/core-simulator-05-collision-preset.png)
 
 *Параметры профиля InteractObject.*
 
@@ -162,7 +169,7 @@ Collision Responses:
 
 В Project Settings → Maps & Modes выберите BP_CS_GameMode в Default GameMode. Можно использовать собственный класс, унаследованный от CS_GameMode: так базовая логика плагина останется доступной.
 
-![Настройки карт и игрового режима проекта](core-simulator-06-maps-and-modes.jpg)
+![Настройки карт и игрового режима проекта](docs/images/core-simulator-06-maps-and-modes.jpg)
 
 *Выбор Game Mode.*
 
@@ -171,7 +178,7 @@ Collision Responses:
 
 В разделе Default Maps задайте Game Default Map = StartMap. Эта карта нужна механизму отслеживания завершения загрузки рабочей карты тренажёра. Для Editor Startup Map выберите StartMap либо рабочую карту тренажёра.
 
-![Настройки карт и игрового режима проекта](core-simulator-06-maps-and-modes.jpg)
+![Настройки карт и игрового режима проекта](docs/images/core-simulator-06-maps-and-modes.jpg)
 
 *Выбор стартовой карты.*
 
@@ -180,7 +187,7 @@ Collision Responses:
 
 В разделе Game Instance выберите CS_GameInstance или его дочерний класс. Он инициализирует менеджер локализации и предоставляет базовые настройки качества графики (уровни 3 и 5).
 
-![Выбор класса Game Instance](core-simulator-07-game-instance.png)
+![Выбор класса Game Instance](docs/images/core-simulator-07-game-instance.png)
 
 *Выбор Game Instance.*
 
@@ -192,7 +199,7 @@ Collision Responses:
 
 Откройте раздел Core Simulator Settings в настройках проекта и задайте параметры курса.
 
-![Параметры Core Simulator Settings](core-simulator-08-project-settings.jpg)
+![Параметры Core Simulator Settings](docs/images/core-simulator-08-project-settings.jpg)
 
 - Core Simulator Settings — настройки курса.
 - Start Location — служебный идентификатор локации для взаимодействия интерфейса с АОС; обычно его менять не требуется.
@@ -216,19 +223,19 @@ Collision Responses:
 - Player crouch possibility on start course — разрешение перемещения в приседе (Ctrl) при запуске курса.
 - Player sprint possibility on start course — разрешение ускоренного перемещения (Shift) при запуске курса.
 
-![Поля Simulator Params Asset](core-simulator-09-course-params.png)
+![Поля Simulator Params Asset](docs/images/core-simulator-09-course-params.png)
 
 <a id="section-19"></a>
 #### Measure Devices Data
 
-![Параметры измерительных приборов](core-simulator-10-measure-devices.png)
+![Параметры измерительных приборов](docs/images/core-simulator-10-measure-devices.png)
 
 Для каждого прибора укажите его идентификатор, иконку и класс актора.
 
 <a id="section-20"></a>
 #### Hot Keys
 
-![Параметры горячих клавиш](core-simulator-11-hot-keys.png)
+![Параметры горячих клавиш](docs/images/core-simulator-11-hot-keys.png)
 
 Настройте действия для клавиш 1–9 и 0. Указанные клавиши автоматически появляются в интерфейсе.
 
@@ -434,17 +441,3 @@ CS_Teleport_Actor наследуется от CS_Interactable_Actor и пере�
 ## Локализация
 
 Файлы локализации находятся в Content/Locales в формате JSON. CS_GameInstance инициализирует менеджер локализации. Настройка локализованного TextBlock и вспомогательных функций в исходном документе не раскрыта.
-
-<a id="section-41"></a>
-## Вопросы для уточнения и предложения
-
-Следующие пункты — предложения и незавершённые разделы документации; они не описывают подтверждённое поведение плагина.
-
-- Уточнить назначение HideDescription() в CS_Character и необходимость проверки изменения масштаба в Tick.
-- Оценить перенос методов обмена с АОС в отдельный Utility UClass и привести связанные имена к единому стилю.
-- Вынести стандартную скорость camera lag в настраиваемый параметр.
-- Оценить выделение общей логики 2D-взаимодействия из CS_Interactable_Actor, отдельного интерфейса масштабирования и логики телепортации к объекту.
-- Уточнить устройство локализованного TextBlock и обоснование его наследования от TextBlock.
-- Дополнить инструкцию правилами упаковки папок контента при сборке проекта.
-- Описать типы диалогов в CS_GameMode, менеджер голосовых сообщений в Blueprint и интерактивный актор для клеток.
-- Проверить назначение пункта «САБКЛЮЧИ» в исходном черновике и использование CS_Interactable_3dPoint_Actor.
